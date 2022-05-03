@@ -1,0 +1,16 @@
+.Category {
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 2vh;
+}
+.CategoryPart {
+  width: 50vw;
+  background-color: blueviolet;
+  border: solid black 1px;
+  margin: 2%;
+  height: 40vh;
+  /* padding: 20%; */
+}
