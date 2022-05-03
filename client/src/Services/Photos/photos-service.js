@@ -8,7 +8,7 @@ export const GetAllPhotos = async () => {
 
 export const PutPhotos = async (photoData) => {
   try {
-    return await fetch(`${basic_url}/id`, {
+    return await fetch(`${basic_url}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

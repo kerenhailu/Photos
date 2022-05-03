@@ -4,7 +4,8 @@ import { GetAllPhotos, PutPhotos } from "./Services/Photos/photos-service";
 
 function App() {
   let [photos, setPhotos] = useState([]);
-  let [updatephotos, setUpdatePhotos] = useState([{}]);
+  let [typePhotos, setTypePhotos] = useState("type");
+  const [select, setSelect] = useState();
 
   useEffect(()=>{
 GetAllPhotos()
@@ -13,7 +14,8 @@ GetAllPhotos()
   // console.log(photos)
 })
   },[])
-  photos.length=9;
+  console.log(photos)
+
   const buttonNext=()=>{
     console.log("next");
       } 
@@ -21,47 +23,40 @@ GetAllPhotos()
         console.log("Prev");
           }
 const valueInput=(event)=>{
-  updatephotos[event.target.name]=event.target.value;
-console.log(photos);
+  typePhotos=event.target.value;
+console.log(typePhotos);
 }
-// const updateUser = (requestedGrade, newGrade) => {
-//   setUserToUpdate({ ...userToUpdate });
-//   console.log({ requestedGrade, newGrade });
-//   PutGrade({ requestedGrade, newGrade })
-//     .then((res) => res.json())
-//     .then((data) => setUsersData(data))
-//     .catch((err) => console.log(err))
-//     .finally(() => setLoading(false));
-// };
-  const ChangeType=(requestedPhotos, newPhotos)=>{
-    setUpdatePhotos({...updatephotos})
-    console.log({ requestedPhotos, newPhotos });
-    PutPhotos({ requestedPhotos, newPhotos })
-    .then((res) => res.json())
-        .then((data) => setUpdatePhotos(data))
-        .catch((err) => console.log(err))
-  }
+
+console.log(typePhotos);
+
   return (
     <div className="App">
         <div className="button">
           <button onClick={buttonPrev}>Prev</button>
           <label for="model">Choose a model:</label>
-  <select id="type" name="type">
-    <option value="all">all</option>
-    <option value="illustration" name="type" onChange={valueInput}>illustration</option>
-    <option value="vector/svg" name="type" onChange={valueInput}>vector/svg</option>
-    <option value="photo" name="type" onChange={valueInput}>photo</option>
+          {/* value="illustration" */}
+  <select id="type" name="type" onChange={valueInput}>
+    <option value="type">type</option>
+    <option value={"illustration"} name="type" type="text">illustration</option>
+    <option value="vector/svg" name="type" type="text">vector/svg</option>
+    <option value="photo" name="type" type="text" >photo</option>
   </select>
-          <button onClick={() => ChangeType(photos, updatephotos)}>Model</button>
+  <input type="submit" onClick={()=>setTypePhotos(typePhotos)}/>
+          {/* <button onClick={()=>setTypePhotos(typePhotos)}>Model</button> */}
           <button onClick={buttonNext}>Next</button>
         </div>
-{
-  photos.map((pic,index)  => 
-    <div className="photos" key={index}>
-     <img src={pic.largeImageURL} alt='picURL'/>
-       
-    </div>
-  )}
+        {typePhotos==="type"?
+          photos.map((pic,index)  => 
+            <div className="photos" key={index}>
+             <img src={pic.largeImageURL} alt='picURL'/>
+            </div>
+          ):
+            photos.filter(pic => pic.type ===typePhotos).map((pic,index)  => 
+              <div className="photos" key={index}>
+               <img src={pic.largeImageURL} alt='picURL'/>
+              </div>
+            )}
+
     </div>
   );
 }
