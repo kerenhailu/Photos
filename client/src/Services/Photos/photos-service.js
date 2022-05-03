@@ -1,16 +1,34 @@
-const basic_url =
-process.env.NODE_ENV === "production"
-  ? "https://final-on-it-project.herokuapp.com/news"
-  : "http://localhost:3010/photos";
+const basic_url="https://pixabay.com/api/?key=25540812-faf2b76d586c1787d2dd02736&q=${CATEGORY}";
 
 export const GetAllPhotos = async () => {
+  return await fetch(`${basic_url}`)
+    .then((res) => res.json())
+    .catch((error) => console.log({ error: "the method get isnt work" }));
+};
+
+export const PutPhotos = async (photoData) => {
   try {
-    return await fetch(`${basic_url}`, {
+    return await fetch(`${basic_url}/id`, {
+      method: "PUT",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `bearer ${localStorage.getItem("token")}`,
       },
+        body: JSON.stringify(photoData),
     });
   } catch (error) {
-    console.log("error in method get");
+    console.log("error in method put");
   }
 };
+
+
+
+
+// const requestOptions = {
+//   method: 'PUT',
+//   headers: { 'Content-Type': 'application/json' },
+//   body: JSON.stringify({ title: 'React PUT Request Example' })
+// };
+// fetch('https://jsonplaceholder.typicode.com/posts/1', requestOptions)
+//   .then(response => response.json())
+//   .then(data => this.setState({ postId: data.id }));

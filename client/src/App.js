@@ -1,47 +1,60 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import PageRouting from "./Components/Routing/PageRouting";
-import Category from "./Components/Pages/Category/category-component";
+import { GetAllPhotos, PutPhotos } from "./Services/Photos/photos-service";
 
 function App() {
-  let [photos, setPhotos] = useState([{}]);
+  let [photos, setPhotos] = useState([]);
+  let [updatephotos, setUpdatePhotos] = useState([{}]);
+
   useEffect(()=>{
-fetch("https://pixabay.com/api/?key=25540812-faf2b76d586c1787d2dd02736&q=${CATEGORY}").then((res)=>res.json())
+GetAllPhotos()
 .then((res)=>{
   setPhotos(res.hits)
   // console.log(photos)
 })
   },[])
-  console.log(photos);
-
+  photos.length=9;
+  const buttonNext=()=>{
+    console.log("next");
+      } 
+       const buttonPrev=()=>{
+        console.log("Prev");
+          }
 const valueInput=(event)=>{
-photos[event.target.name]=event.target.value;
+  updatephotos[event.target.name]=event.target.value;
 console.log(photos);
 }
-  const ChangeType=(typePhotos)=>{
-    console.log("ddd");
-if(photos.type==typePhotos){
-  setPhotos(photos)
-  console.log(photos);
-}
+// const updateUser = (requestedGrade, newGrade) => {
+//   setUserToUpdate({ ...userToUpdate });
+//   console.log({ requestedGrade, newGrade });
+//   PutGrade({ requestedGrade, newGrade })
+//     .then((res) => res.json())
+//     .then((data) => setUsersData(data))
+//     .catch((err) => console.log(err))
+//     .finally(() => setLoading(false));
+// };
+  const ChangeType=(requestedPhotos, newPhotos)=>{
+    setUpdatePhotos({...updatephotos})
+    console.log({ requestedPhotos, newPhotos });
+    PutPhotos({ requestedPhotos, newPhotos })
+    .then((res) => res.json())
+        .then((data) => setUpdatePhotos(data))
+        .catch((err) => console.log(err))
   }
   return (
     <div className="App">
-      {/* <PageRouting/> */}
-      {/* <Category/> */}
         <div className="button">
-          <button>Prev</button>
+          <button onClick={buttonPrev}>Prev</button>
           <label for="model">Choose a model:</label>
   <select id="type" name="type">
     <option value="all">all</option>
-    <option value="illustration" onChange={(e)=>valueInput(e.target.value)}>illustration</option>
-    <option value="vector/svg" onChange={(e)=>valueInput(e.target.value)}>vector/svg</option>
-    <option value="photo" onChange={(e)=>valueInput(e.target.value)}>photo</option>
+    <option value="illustration" name="type" onChange={valueInput}>illustration</option>
+    <option value="vector/svg" name="type" onChange={valueInput}>vector/svg</option>
+    <option value="photo" name="type" onChange={valueInput}>photo</option>
   </select>
-          <button onClick={()=>ChangeType("photo")}>Model</button>
-          <button>Next</button>
+          <button onClick={() => ChangeType(photos, updatephotos)}>Model</button>
+          <button onClick={buttonNext}>Next</button>
         </div>
-
 {
   photos.map((pic,index)  => 
     <div className="photos" key={index}>
@@ -49,15 +62,6 @@ if(photos.type==typePhotos){
        
     </div>
   )}
-     {/* <img src={photos.largeImageURL} alt='picURL'/> */}
-        
-        {/* {photos.map((pic, index) => (
-          <div key={index}>
-            <img src={pic.largeImageURL} alt="pic" />
-            {pic.type}
-          </div>
-        ))} */}
-    
     </div>
   );
 }
