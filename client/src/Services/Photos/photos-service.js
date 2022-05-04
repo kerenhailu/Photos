@@ -1,4 +1,5 @@
-const basic_url="https://pixabay.com/api/?key=25540812-faf2b76d586c1787d2dd02736&q=${CATEGORY}";
+const basic_url =
+  "https://pixabay.com/api/?key=25540812-faf2b76d586c1787d2dd02736&q=${CATEGORY}";
 
 export const GetAllPhotos = async () => {
   return await fetch(`${basic_url}`)
@@ -14,7 +15,7 @@ export const PutPhotos = async (photoData) => {
         "Content-Type": "application/json",
         Authorization: `bearer ${localStorage.getItem("token")}`,
       },
-        body: JSON.stringify(photoData),
+      body: JSON.stringify(photoData),
     });
   } catch (error) {
     console.log("error in method put");
