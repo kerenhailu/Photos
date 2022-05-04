@@ -99,8 +99,6 @@ let num=1
   </select>
   <input type="submit" onClick={()=>setTypePhotos(typePhotos)}/>
           <button onClick={sortBydownloads}>sort by downloads</button>
-
-          {/* <button onClick={()=>setTypePhotos(typePhotos)}>Model</button> */}
           <button onClick={buttonNext}>Next</button>
         </div>
         {/* <button disabled={left === 36} onClick={handleSliderNext} className='next-img-btn'>
