@@ -1,19 +1,16 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import { GetAllPhotos } from "./Services/Photos/photos-service";
-import Test from "./Components/TEST/test";
 
 function App() {
   let [photos, setPhotos] = useState([]);
   let [typePhotos, setTypePhotos] = useState("category");
-  const [count, setCount] = useState(0);
 
   useEffect(() => {
     GetAllPhotos().then((res) => {
       setPhotos(res.hits);
     });
   }, []);
-  // console.log(photos);
   const SortByViews = () => {
     photos.sort((a, b) => a.views - b.views);
     setPhotos([...photos]);
@@ -22,18 +19,9 @@ function App() {
     photos.sort((a, b) => a.downloads - b.downloads);
     setPhotos([...photos]);
   };
-  const ButtonNext = () => {
-    setCount(count + 1);
-    console.log(count);
-  };
-  const ButtonPrev = () => {
-    setCount(count - 1);
-    console.log(count);
-  };
   const ValueInput = (event) => {
     typePhotos = event.target.value;
   };
-  // console.log(typePhotos);
   let i =0;
     const Prev=()=>{
     if(i <= 0) i = photos.length;	
@@ -46,10 +34,9 @@ function Next(){
     if(i >= photos.length-1) i = -1;
     i++;
     setPhotos(photos)
-    // return SetImg();			 
+		 
 }
 function SetImg(){
-  // Photos.style
    console.log(photos[i]);
     
 }
@@ -92,7 +79,6 @@ function SetImg(){
                 <img src={pic.largeImageURL} alt="picURL" />
               </div>
             ))}
-      <Test />
     </div>
   );
 }
