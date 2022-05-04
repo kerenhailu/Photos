@@ -49,6 +49,7 @@ function Next(){
     // return SetImg();			 
 }
 function SetImg(){
+  // Photos.style
    console.log(photos[i]);
     
 }
@@ -56,7 +57,7 @@ function SetImg(){
     <div className="App">
       <div className="button">
         <button onClick={Prev}>Prev</button>
-        <button onClick={SortByViews}>sort by view</button>
+        <button onClick={SortByViews}>Sort by view</button>
         <br />
         <select id="type" name="type" onChange={ValueInput}>
           <option value="category">Category</option>
@@ -75,19 +76,19 @@ function SetImg(){
           type="submit"
           onClick={() => setTypePhotos(typePhotos)}
         />
-        <button onClick={SortBydownloads}>sort by downloads</button>
+        <button onClick={SortBydownloads}>Sort by downloads</button>
         <button onClick={Next}>Next</button>
       </div>
       {typePhotos === "category"
         ? photos.map((pic, index) => (
             <div className="photos" key={index}>
-              <img className="center" src={pic.largeImageURL} alt="picURL" />
+              <img className="Photos" src={pic.largeImageURL} alt="picURL" />
             </div>
           ))
         : photos
             .filter((pic) => pic.type === typePhotos)
             .map((pic, index) => (
-              <div className="photos" key={index}>
+              <div className="Photos" key={index}>
                 <img src={pic.largeImageURL} alt="picURL" />
               </div>
             ))}
