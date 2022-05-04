@@ -6,7 +6,11 @@
   flex-direction: row;
     justify-content:center;
     margin-top: 2vh; 
+    height: 100vh; 
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
+
 .button{
   display: flex;
     flex-direction: row;
@@ -25,6 +29,7 @@ background-color: white;
     border: 1px solid black;
     margin-Bottom: 2%;
     margin: 7px;
+
 }
 .btnCategoty{
   position: relative;

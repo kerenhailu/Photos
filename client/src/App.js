@@ -1,48 +1,64 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import { GetAllPhotos } from "./Services/Photos/photos-service";
+import Test from "./Components/TEST/test";
 
-// import store from './Redux/Store';
 function App() {
   let [photos, setPhotos] = useState([]);
   let [typePhotos, setTypePhotos] = useState("category");
   const [count, setCount] = useState(0);
-  const lengthPhotos = 9;
 
   useEffect(() => {
     GetAllPhotos().then((res) => {
       setPhotos(res.hits);
     });
   }, []);
-  console.log(photos);
-  const sortByViews = () => {
+  // console.log(photos);
+  const SortByViews = () => {
     photos.sort((a, b) => a.views - b.views);
     setPhotos([...photos]);
   };
-  const sortBydownloads = () => {
+  const SortBydownloads = () => {
     photos.sort((a, b) => a.downloads - b.downloads);
     setPhotos([...photos]);
   };
-  const buttonNext = () => {
+  const ButtonNext = () => {
     setCount(count + 1);
     console.log(count);
   };
-  const buttonPrev = () => {
+  const ButtonPrev = () => {
     setCount(count - 1);
     console.log(count);
   };
-  const valueInput = (event) => {
+  const ValueInput = (event) => {
     typePhotos = event.target.value;
   };
-  console.log(typePhotos);
+  // console.log(typePhotos);
+  let i =0;
+    const Prev=()=>{
+    if(i <= 0) i = photos.length;	
+    i--;
+    setPhotos(photos)
+    return SetImg();	
+}
 
+function Next(){
+    if(i >= photos.length-1) i = -1;
+    i++;
+    setPhotos(photos)
+    // return SetImg();			 
+}
+function SetImg(){
+   console.log(photos[i]);
+    
+}
   return (
     <div className="App">
       <div className="button">
-        <button onClick={buttonPrev}>Prev</button>
-        <button onClick={sortByViews}>sort by view</button>
+        <button onClick={Prev}>Prev</button>
+        <button onClick={SortByViews}>sort by view</button>
         <br />
-        <select id="type" name="type" onChange={valueInput}>
+        <select id="type" name="type" onChange={ValueInput}>
           <option value="category">Category</option>
           <option value="illustration" name="type" type="text">
             illustration
@@ -54,9 +70,13 @@ function App() {
             photo
           </option>
         </select>
-        <input className="btnCategoty" type="submit" onClick={() => setTypePhotos(typePhotos)} />
-        <button onClick={sortBydownloads}>sort by downloads</button>
-        <button onClick={buttonNext}>Next</button>
+        <input
+          className="btnCategoty"
+          type="submit"
+          onClick={() => setTypePhotos(typePhotos)}
+        />
+        <button onClick={SortBydownloads}>sort by downloads</button>
+        <button onClick={Next}>Next</button>
       </div>
       {typePhotos === "category"
         ? photos.map((pic, index) => (
@@ -71,6 +91,7 @@ function App() {
                 <img src={pic.largeImageURL} alt="picURL" />
               </div>
             ))}
+      <Test />
     </div>
   );
 }
