@@ -26,3 +26,7 @@ background-color: white;
     margin-Bottom: 2%;
     margin: 7px;
 }
+.btnCategoty{
+  position: relative;
+  right: 125px;
+}
