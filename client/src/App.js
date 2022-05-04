@@ -5,7 +5,6 @@ import { GetAllPhotos } from "./Services/Photos/photos-service";
 function App() {
   let [photos, setPhotos] = useState([]);
   let [typePhotos, setTypePhotos] = useState("category");
-
   useEffect(() => {
     GetAllPhotos().then((res) => {
       setPhotos(res.hits);
@@ -22,24 +21,21 @@ function App() {
   const ValueInput = (event) => {
     typePhotos = event.target.value;
   };
-  let i =0;
-    const Prev=()=>{
-    if(i <= 0) i = photos.length;	
+  let i = 0;
+  const Prev = () => {
+    if (i <= 0) i = photos.length;
     i--;
-    setPhotos(photos)
-    return SetImg();	
-}
-
-function Next(){
-    if(i >= photos.length-1) i = -1;
+    setPhotos(photos);
+    return SetImg();
+  };
+  function Next() {
+    if (i >= photos.length - 1) i = -1;
     i++;
-    setPhotos(photos)
-		 
-}
-function SetImg(){
-   console.log(photos[i]);
-    
-}
+    setPhotos(photos);
+  }
+  function SetImg() {
+    console.log(photos[i]);
+  }
   return (
     <div className="App">
       <div className="button">
