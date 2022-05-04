@@ -8,17 +8,16 @@
     margin-top: 2vh; 
 }
 .button{
-  width: 90vw;
-  /* display: flex;
+  display: flex;
     flex-direction: row;
-    width: 100vw;  
-    justify-content: space-around; */
- 
+    width: 90vw;  
+    justify-content: space-around;
   }
-  .button button{
-  margin: 30px;
-width: 10vw;
-height: 3vh;
+  .button button, select,input{
+color: rgb(84, 21, 143);
+font-weight: bold;
+padding: 0.5%;
+background-color: white;
 }
 .photos img{
   width: 27vw;
